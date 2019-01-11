@@ -5,12 +5,13 @@ import smtplib
 import time
 
 
+instance_info_path = os.environ.get('INSTANCE_INFO_PATH', '/config/instance-info.json')
 initial_delay = int(os.environ.get('INITIAL_DELAY', 86400))  # 1 day by default
 notify_interval = int(os.environ.get('NOTIFY_INTERVAL', 604800))  # 1 week by default
 
 smtp_server_credentials = {
     'server': os.environ.get('SMTP_SERVER'),
-    'port': os.environ.get('SMTP_PORT'),
+    'port': os.environ.get('SMTP_PORT', 465),
     'login': os.environ.get('SMTP_LOGIN'),
     'password': os.environ.get('SMTP_PASSWORD'),
     'sender': os.environ.get('SMTP_FROM')
@@ -36,7 +37,7 @@ def send_email(recipient, email_body):
     print "Message has been sent"
 
 
-with open('instance-info.json') as f:
+with open(instance_info_path) as f:
     instance = json.load(f)
 
 instances = instance['InstanceIds']
