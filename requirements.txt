@@ -1,5 +1,1 @@
-email
-json
-os
-smtplib
-time
+setuptools==18.5
